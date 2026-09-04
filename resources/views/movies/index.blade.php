@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/movies.css') }}">
+
 <main class="movies-page">
     <div class="movies-shell">
 
@@ -237,4 +239,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endsection
-
