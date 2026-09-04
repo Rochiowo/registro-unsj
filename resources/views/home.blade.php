@@ -1,2 +1,0 @@
-<?php
-#comentado por mi
