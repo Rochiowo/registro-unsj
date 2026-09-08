@@ -16,9 +16,9 @@ class AnimalController extends Controller
         return view('animals.index', ['animals' => session('animals')]);
     }
 
-    public function create(): View
+    public function create(): RedirectResponse
     {
-        return view('animals.create');
+        return redirect()->route('animals.index');
     }
 
     public function store(StoreAnimalRequest $request): RedirectResponse

@@ -4,8 +4,14 @@ test('animals index lists the session animals', function () {
     $this->get('/animals')
         ->assertSuccessful()
         ->assertSee('AnimalsApp')
+        ->assertSee('id="animal-form"', false)
         ->assertSee('Luna')
         ->assertSee('Perro');
+});
+
+test('animal create route redirects to the index form', function () {
+    $this->get('/animals/create')
+        ->assertRedirect('/animals');
 });
 
 test('animal creation stores a new animal in session', function () {
