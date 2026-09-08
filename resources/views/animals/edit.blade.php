@@ -15,8 +15,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1>Edit Animal</h1>
-                    <p>Update your animal details</p>
+                    <h1>Editar Animal</h1>
+                    <p>Actualiza los datos de tu animal</p>
                 </div>
             </div>
         </header>
@@ -39,24 +39,24 @@
                 @method('PUT')
 
                 <div class="form-field">
-                    <label for="name"><span>Name</span></label>
-                    <input id="name" name="name" type="text" value="{{ old('name', $animal['name']) }}" required maxlength="255" placeholder="Enter animal name..." autocomplete="off">
+                    <label for="name"><span>Nombre</span></label>
+                    <input id="name" name="name" type="text" value="{{ old('name', $animal['name']) }}" required maxlength="255" placeholder="Ingresa el nombre del animal..." autocomplete="off">
                 </div>
 
                 <div class="form-field">
-                    <label for="species"><span>Species</span></label>
-                    <input id="species" name="species" type="text" value="{{ old('species', $animal['species']) }}" required maxlength="100" placeholder="Enter species..." autocomplete="off">
+                    <label for="species"><span>Especie</span></label>
+                    <input id="species" name="species" type="text" value="{{ old('species', $animal['species']) }}" required maxlength="100" placeholder="Ingresa la especie..." autocomplete="off">
                 </div>
 
                 <div class="form-actions-row">
                     <div class="form-field year-field animal-age-field">
-                        <label for="age"><span>Age</span></label>
-                        <input id="age" name="age" type="number" value="{{ old('age', $animal['age']) }}" required min="0" max="200" placeholder="Years">
+                        <label for="age"><span>Edad</span></label>
+                        <input id="age" name="age" type="number" value="{{ old('age', $animal['age']) }}" required min="0" max="200" placeholder="Años">
                     </div>
 
                     <div class="form-buttons">
-                        <a href="{{ route('animals.index') }}" class="btn btn-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a href="{{ route('animals.index') }}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     </div>
                 </div>
             </form>
