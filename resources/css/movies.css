@@ -279,6 +279,73 @@
     padding-bottom: 20px;
 }
 
+.animals-page .brand-icon {
+    color: #16805b;
+}
+
+.animals-page .animal-logo {
+    width: 100%;
+    height: 100%;
+}
+
+.animals-page .btn-primary {
+    color: #f0fdf4;
+    background: linear-gradient(135deg, #16805b, #166534);
+    border-color: #166534;
+    box-shadow: 0 5px 13px rgba(22, 101, 52, .22);
+}
+
+.animals-page .btn-primary:hover {
+    background: #14532d;
+}
+
+.animals-page .btn-secondary {
+    color: #166534;
+    border-color: #86b99b;
+}
+
+.animals-page .btn-secondary:hover {
+    background: #ecfdf5;
+}
+
+.animals-page .sort-btn:hover,
+.animals-page .sort-btn[aria-pressed="true"] {
+    background: #ecfdf5;
+    border-color: #86b99b;
+}
+
+.animals-page .sort-btn:focus-visible,
+.animals-page .search-box:focus-within {
+    border-color: #4f9f76;
+    box-shadow: 0 0 0 3px rgba(22, 101, 52, .12);
+}
+
+.animals-page .sort-icon {
+    color: #166534;
+}
+
+.animals-page .edit-btn {
+    color: #166534;
+    border-color: #86b99b;
+}
+
+.animals-page .edit-btn:hover {
+    background: #ecfdf5;
+}
+
+.animals-page .page-btn.active {
+    color: #f0fdf4;
+    background: #16805b;
+    border-color: #166534;
+    box-shadow: 0 4px 9px rgba(22, 101, 52, .18);
+}
+
+.animals-page .per-page:focus-within,
+.animals-page .per-page select:focus {
+    border-color: #4f9f76;
+    box-shadow: 0 0 0 3px rgba(22, 101, 52, .12);
+}
+
 .animals-list-section {
     padding-top: 28px;
     padding-bottom: 30px;

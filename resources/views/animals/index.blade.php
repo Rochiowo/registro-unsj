@@ -6,11 +6,12 @@
         <header class="movies-header">
             <div class="brand">
                 <div class="brand-icon" aria-hidden="true">
-                    <svg viewBox="0 0 32 32" fill="none">
-                        <path d="M5 9.5 25 5l2 4.5-20 4.5L5 9.5Z" stroke="currentColor" stroke-width="2"/>
-                        <rect x="5" y="10" width="22" height="17" rx="2" stroke="currentColor" stroke-width="2"/>
-                        <path d="M11 7.9 13 12M17 6.5l2 4.5M23 5.2l2 4.5" stroke="currentColor" stroke-width="2"/>
-                        <path d="m15 17 5 3-5 3v-6Z" fill="currentColor"/>
+                    <svg class="animal-logo" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 42c-8.2 0-14-4.8-14-11.5 0-5.8 4.1-8.8 8.6-8.8 2.1 0 3.9.8 5.4 2.1 1.5-1.3 3.3-2.1 5.4-2.1 4.5 0 8.6 3 8.6 8.8C38 37.2 32.2 42 24 42Z" fill="currentColor"/>
+                        <ellipse cx="14" cy="14" rx="5" ry="6" fill="currentColor"/>
+                        <ellipse cx="25" cy="9" rx="5" ry="6" fill="currentColor"/>
+                        <ellipse cx="36" cy="14" rx="5" ry="6" fill="currentColor"/>
+                        <path d="M24 25c-1.8 2.2-3.2 4-3.2 6.1a3.2 3.2 0 0 0 6.4 0c0-2.1-1.4-3.9-3.2-6.1Z" fill="#ecfdf5"/>
                     </svg>
                 </div>
                 <div>
