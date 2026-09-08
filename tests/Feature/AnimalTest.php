@@ -52,3 +52,18 @@ test('animal deletion removes the animal from session', function () {
 
     expect(collect(session('animals'))->pluck('id')->all())->not->toContain(2);
 });
+
+test('animal creation reports validation errors in spanish', function () {
+    $this->from('/animals')
+        ->post('/animals', [
+            'name' => '',
+            'species' => '',
+            'age' => -1,
+        ])
+        ->assertRedirect('/animals')
+        ->assertSessionHasErrors([
+            'name' => 'El nombre del animal es obligatorio.',
+            'species' => 'La especie del animal es obligatoria.',
+            'age' => 'La edad no puede ser negativa.',
+        ]);
+});
