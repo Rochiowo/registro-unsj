@@ -1,60 +1,92 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mx-auto max-w-5xl space-y-6">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-            <p class="text-sm font-semibold uppercase tracking-wide text-blue-600">Sistema de gestión</p>
-            <h1 class="mt-1 text-3xl font-bold text-gray-900">Animales</h1>
-            <p class="mt-2 text-gray-600">Administra los animales registrados.</p>
-        </div>
-        <a href="{{ route('animals.create') }}" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700">
-            Nuevo animal
-        </a>
-    </div>
+<main class="movies-page animals-page">
+    <div class="movies-shell">
+        <header class="movies-header">
+            <div class="brand">
+                <div class="brand-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M5 9.5 25 5l2 4.5-20 4.5L5 9.5Z" stroke="currentColor" stroke-width="2"/>
+                        <rect x="5" y="10" width="22" height="17" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M11 7.9 13 12M17 6.5l2 4.5M23 5.2l2 4.5" stroke="currentColor" stroke-width="2"/>
+                        <path d="m15 17 5 3-5 3v-6Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Animals Manager</h1>
+                    <p>Manage your animal collection</p>
+                </div>
+            </div>
+        </header>
 
-    @if (session('success'))
-        <div role="status" class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-800">
-            {{ session('success') }}
-        </div>
-    @endif
+        <section class="list-section animals-list-section">
+            <div class="list-heading">
+                <div class="section-title">
+                    <span class="section-icon animal-section-icon" aria-hidden="true">🐾</span>
+                    <h2>Animals List</h2>
+                </div>
 
-    <section class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">Especie</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">Edad</th>
-                        <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-600">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100 bg-white">
-                    @forelse ($animals as $animal)
-                        <tr class="hover:bg-gray-50">
-                            <td class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">{{ $animal['name'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-gray-600">{{ $animal['species'] }}</td>
-                            <td class="whitespace-nowrap px-6 py-4 text-gray-600">{{ $animal['age'] }} años</td>
-                            <td class="px-6 py-4">
-                                <div class="flex justify-end gap-2">
-                                    <a href="{{ route('animals.edit', $animal['id']) }}" class="rounded-md border border-blue-200 px-3 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50">Editar</a>
-                                    <form action="{{ route('animals.destroy', $animal['id']) }}" method="POST" onsubmit="return confirm('¿Eliminar este animal?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="rounded-md border border-red-200 px-3 py-2 text-sm font-semibold text-red-700 hover:bg-red-50">Eliminar</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
+                <a href="{{ route('animals.create') }}" class="btn btn-primary animal-create-button">
+                    <span class="btn-icon-text" aria-hidden="true">＋</span>
+                    Add Animal
+                </a>
+            </div>
+
+            @if (session('success'))
+                <p role="status" class="animal-status">{{ session('success') }}</p>
+            @endif
+
+            <div class="movies-table-wrapper">
+                <table class="movies-table animals-table">
+                    <thead>
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-gray-500">No hay animales registrados.</td>
+                            <th>Name</th>
+                            <th>Species</th>
+                            <th>Age</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </section>
-</div>
+                    </thead>
+                    <tbody>
+                        @forelse ($animals as $animal)
+                            <tr>
+                                <td class="movie-title-cell">{{ $animal['name'] }}</td>
+                                <td>{{ $animal['species'] }}</td>
+                                <td>{{ $animal['age'] }} years</td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="{{ route('animals.edit', $animal['id']) }}" class="action-btn edit-btn">Edit</a>
+                                        <form action="{{ route('animals.destroy', $animal['id']) }}" method="POST" onsubmit="return confirm('¿Eliminar este animal?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="action-btn delete-btn">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">
+                                    <div class="movies-empty">
+                                        <span class="empty-icon">🐾</span>
+                                        <strong>No animals available.</strong>
+                                        <span>Add a new animal to get started.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="movies-footer">
+            <div>
+                <strong>Animals Manager</strong>
+                <span>© {{ date('Y') }}</span>
+            </div>
+            <div>Keep your collection organized</div>
+        </footer>
+    </div>
+</main>
 @endsection
