@@ -15,15 +15,15 @@
                     </svg>
                 </div>
                 <div>
-                    <h1>Animals Manager</h1>
-                    <p>Manage your animal collection</p>
+                    <h1>Administrador de Animales</h1>
+                    <p>Gestiona tu colección de animales</p>
                 </div>
             </div>
         </header>
 
         <section class="add-section">
             <div class="section-title">
-                <h2>Add New Animal</h2>
+                <h2>Agregar Nuevo Animal</h2>
             </div>
 
             @if (session('success'))
@@ -42,23 +42,23 @@
                 @csrf
 
                 <div class="form-field">
-                    <label for="name"><span>Name</span></label>
-                    <input id="name" name="name" type="text" value="{{ old('name') }}" required maxlength="255" placeholder="Enter animal name..." autocomplete="off">
+                    <label for="name"><span>Nombre</span></label>
+                    <input id="name" name="name" type="text" value="{{ old('name') }}" required maxlength="255" placeholder="Ingresa el nombre del animal..." autocomplete="off">
                 </div>
 
                 <div class="form-field">
-                    <label for="species"><span>Species</span></label>
-                    <input id="species" name="species" type="text" value="{{ old('species') }}" required maxlength="100" placeholder="Enter species..." autocomplete="off">
+                    <label for="species"><span>Especie</span></label>
+                    <input id="species" name="species" type="text" value="{{ old('species') }}" required maxlength="100" placeholder="Ingresa la especie..." autocomplete="off">
                 </div>
 
                 <div class="form-actions-row">
                     <div class="form-field year-field">
-                        <label for="age"><span>Age</span></label>
-                        <input id="age" name="age" type="number" value="{{ old('age') }}" required min="0" max="200" placeholder="Years">
+                        <label for="age"><span>Edad</span></label>
+                        <input id="age" name="age" type="number" value="{{ old('age') }}" required min="0" max="200" placeholder="Años">
                     </div>
 
                     <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary">Add Animal</button>
+                        <button type="submit" class="btn btn-primary">Agregar Animal</button>
                     </div>
                 </div>
             </form>
@@ -67,12 +67,12 @@
         <section class="list-section animals-list-section">
             <div class="list-heading">
                 <div class="section-title">
-                    <h2>Animals List</h2>
+                    <h2>Lista de Animales</h2>
                 </div>
 
                 <div class="list-tools">
                     <button type="button" id="sortAnimals" class="sort-btn" aria-label="Sort animals alphabetically" aria-pressed="false">
-                        <span class="sort-label">Sort by:</span>
+                        <span class="sort-label">Ordenar por:</span>
                         <span class="sort-icon" aria-hidden="true">A-Z</span>
                     </button>
 
@@ -81,7 +81,7 @@
                             <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
                             <path d="m16 16 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <input id="animalSearch" type="search" placeholder="Search animals..." aria-label="Search animals">
+                        <input id="animalSearch" type="search" placeholder="Buscar animales..." aria-label="Buscar animales">
                     </div>
 
                 </div>
@@ -91,10 +91,10 @@
                 <table class="movies-table animals-table" id="animalsTable">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Species</th>
-                            <th>Age</th>
-                            <th>Actions</th>
+                            <th>Nombre</th>
+                            <th>Especie</th>
+                            <th>Edad</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,14 +102,14 @@
                             <tr class="animal-row">
                                 <td class="movie-title-cell animal-name-cell">{{ $animal['name'] }}</td>
                                 <td>{{ $animal['species'] }}</td>
-                                <td>{{ $animal['age'] }} years</td>
+                                <td>{{ $animal['age'] }} años</td>
                                 <td>
                                     <div class="actions">
-                                        <a href="{{ route('animals.edit', $animal['id']) }}" class="action-btn edit-btn">Edit</a>
+                                        <a href="{{ route('animals.edit', $animal['id']) }}" class="action-btn edit-btn">Editar</a>
                                         <form action="{{ route('animals.destroy', $animal['id']) }}" method="POST" onsubmit="return confirm('¿Eliminar este animal?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="action-btn delete-btn">Delete</button>
+                                            <button type="submit" class="action-btn delete-btn">Eliminar</button>
                                         </form>
                                     </div>
                                 </td>
@@ -119,8 +119,8 @@
                                 <td colspan="4">
                                     <div class="movies-empty">
                                         <span class="empty-icon">🐾</span>
-                                        <strong>No animals available.</strong>
-                                        <span>Add a new animal to get started.</span>
+                                        <strong>No hay animales disponibles.</strong>
+                                        <span>Agrega un animal para comenzar.</span>
                                     </div>
                                 </td>
                             </tr>
@@ -129,7 +129,7 @@
                 </table>
 
                 <div id="animalSearchEmpty" class="search-empty" hidden>
-                    No animals were found matching your search.
+                    No se encontraron animales que coincidan con tu búsqueda.
                 </div>
 
                 @php
@@ -138,7 +138,7 @@
 
                 <div class="table-footer">
                     <span class="results-count">
-                        Showing 1 to {{ min(5, $animalCount) }} of {{ $animalCount }} animals
+                        Mostrando 1 a {{ min(5, $animalCount) }} de {{ $animalCount }} animales
                     </span>
 
                     <div class="pagination" aria-label="Pagination">
@@ -148,10 +148,10 @@
                     </div>
 
                     <label class="per-page">
-                        <select id="animalPerPage" aria-label="Animals per page">
-                            <option value="5">5 per page</option>
-                            <option value="10">10 per page</option>
-                            <option value="25">25 per page</option>
+                        <select id="animalPerPage" aria-label="Animales por página">
+                            <option value="5">5 por página</option>
+                            <option value="10">10 por página</option>
+                            <option value="25">25 por página</option>
                         </select>
                     </label>
                 </div>
@@ -160,10 +160,10 @@
 
         <footer class="movies-footer">
             <div>
-                <strong>Animals Manager</strong>
+                <strong>Administrador de Animales</strong>
                 <span>© {{ date('Y') }}</span>
             </div>
-            <div>Keep your collection organized</div>
+            <div>Mantén tu colección organizada</div>
         </footer>
     </div>
 </main>
@@ -204,8 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         empty.hidden = term === '' || matchingRows.length > 0;
         count.textContent = matchingRows.length === 0
-            ? 'Showing 0 animals'
-            : 'Showing ' + (firstVisible + 1) + ' to ' + Math.min(lastVisible, matchingRows.length) + ' of ' + matchingRows.length + ' animals';
+            ? 'Mostrando 0 animales'
+            : 'Mostrando ' + (firstVisible + 1) + ' a ' + Math.min(lastVisible, matchingRows.length) + ' de ' + matchingRows.length + ' animales';
 
         pageButtons.replaceChildren();
         for (let page = 1; page <= totalPages; page++) {
