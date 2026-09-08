@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="movies-page animals-page edit-page">
+<main class="movies-page animals-page">
     <div class="movies-shell">
         <header class="movies-header">
             <div class="brand">
@@ -14,16 +14,15 @@
                     </svg>
                 </div>
                 <div>
-                    <h1>Add New Animal</h1>
-                    <p>Register a new animal in your collection</p>
+                    <h1>Animals Manager</h1>
+                    <p>Manage your animal collection</p>
                 </div>
             </div>
         </header>
 
-        <section class="add-section animal-form-section">
+        <section class="add-section">
             <div class="section-title">
-                <span class="section-icon animal-section-icon" aria-hidden="true">🐾</span>
-                <h2>Animal Details</h2>
+            <h2>Add New Animal</h2>
             </div>
 
             @if ($errors->any())
@@ -34,28 +33,27 @@
                 </div>
             @endif
 
-            <form action="{{ route('animals.store') }}" method="POST" class="movie-form animal-form">
+            <form action="{{ route('animals.store') }}" method="POST" class="movie-form">
                 @csrf
 
                 <div class="form-field">
-                    <label for="name"><span class="animal-field-mark">●</span><span>Name</span></label>
+                    <label for="name"><span>Name</span></label>
                     <input id="name" name="name" type="text" value="{{ old('name') }}" required maxlength="255" placeholder="Enter animal name..." autocomplete="off">
                 </div>
 
                 <div class="form-field">
-                    <label for="species"><span class="animal-field-mark">◇</span><span>Species</span></label>
+                    <label for="species"><span>Species</span></label>
                     <input id="species" name="species" type="text" value="{{ old('species') }}" required maxlength="100" placeholder="Enter species..." autocomplete="off">
                 </div>
 
                 <div class="form-actions-row">
-                    <div class="form-field year-field animal-age-field">
-                        <label for="age"><span class="animal-field-mark">#</span><span>Age</span></label>
+                    <div class="form-field year-field">
+                        <label for="age"><span>Age</span></label>
                         <input id="age" name="age" type="number" value="{{ old('age') }}" required min="0" max="200" placeholder="Years">
                     </div>
 
                     <div class="form-buttons">
-                        <a href="{{ route('animals.index') }}" class="btn btn-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-primary"><span class="btn-icon-text" aria-hidden="true">＋</span>Save Animal</button>
+                        <button type="submit" class="btn btn-primary">Add Animal</button>
                     </div>
                 </div>
             </form>

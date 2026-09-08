@@ -28,7 +28,6 @@
                 </div>
 
                 <a href="{{ route('animals.create') }}" class="btn btn-primary animal-create-button">
-                    <span class="btn-icon-text" aria-hidden="true">＋</span>
                     Add Animal
                 </a>
             </div>
