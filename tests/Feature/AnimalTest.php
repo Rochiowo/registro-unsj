@@ -3,6 +3,7 @@
 test('animals index lists the session animals', function () {
     $this->get('/animals')
         ->assertSuccessful()
+        ->assertSee('AnimalsApp')
         ->assertSee('Luna')
         ->assertSee('Perro');
 });
