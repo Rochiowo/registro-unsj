@@ -1,18 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="movies-page animals-page">
-    <div class="movies-shell">
-        <header class="movies-header">
+<!-- Enlace a los estilos -->
+@vite(['resources/css/app.css', 'resources/js/animals.js'])
+
+<main class="animals-page">
+    <div class="animals-shell">
+        <header class="animals-header">
             <div class="brand">
                 <div class="brand-icon" aria-hidden="true">
-                    <svg class="animal-logo" viewBox="0 0 48 48" fill="none">
-                        <path d="M24 42c-8.2 0-14-4.8-14-11.5 0-5.8 4.1-8.8 8.6-8.8 2.1 0 3.9.8 5.4 2.1 1.5-1.3 3.3-2.1 5.4-2.1 4.5 0 8.6 3 8.6 8.8C38 37.2 32.2 42 24 42Z" fill="currentColor"/>
-                        <ellipse cx="14" cy="14" rx="5" ry="6" fill="currentColor"/>
-                        <ellipse cx="25" cy="9" rx="5" ry="6" fill="currentColor"/>
-                        <ellipse cx="36" cy="14" rx="5" ry="6" fill="currentColor"/>
-                        <path d="M24 25c-1.8 2.2-3.2 4-3.2 6.1a3.2 3.2 0 0 0 6.4 0c0-2.1-1.4-3.9-3.2-6.1Z" fill="#ecfdf5"/>
-                    </svg>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Administrador de Animales" class="animal-logo">
                 </div>
                 <div>
                     <h1>Administrador de Animales</h1>
@@ -38,7 +35,7 @@
                 </div>
             @endif
 
-            <form id="animal-form" action="{{ route('animals.store') }}" method="POST" class="movie-form">
+            <form id="animal-form" action="{{ route('animals.store') }}" method="POST" class="animal-form">
                 @csrf
 
                 <div class="form-field">
@@ -52,7 +49,7 @@
                 </div>
 
                 <div class="form-actions-row">
-                    <div class="form-field year-field">
+                    <div class="form-field animal-age-field">
                         <label for="age"><span>Edad</span></label>
                         <input id="age" name="age" type="number" value="{{ old('age') }}" required min="0" max="200" placeholder="Años">
                     </div>
@@ -71,6 +68,15 @@
                 </div>
 
                 <div class="list-tools">
+                    <form action="{{ route('animals.reset') }}" method="POST" class="inline-block" style="margin-right: 10px;">
+                        @csrf
+                        <button type="submit" 
+                                class="btn btn-primary" 
+                                style="background-color: #dc2626; border-color: #dc2626;"
+                                onclick="return confirm('¿Seguro que deseas resetear la lista con los datos semilla?')">
+                            Resetear lista
+                        </button>
+                    </form>
                     <button type="button" id="sortAnimals" class="sort-btn" aria-label="Sort animals alphabetically" aria-pressed="false">
                         <span class="sort-label">Ordenar por:</span>
                         <span class="sort-icon" aria-hidden="true">A-Z</span>
@@ -83,12 +89,11 @@
                         </svg>
                         <input id="animalSearch" type="search" placeholder="Buscar animales..." aria-label="Buscar animales">
                     </div>
-
                 </div>
             </div>
 
-            <div class="movies-table-wrapper">
-                <table class="movies-table animals-table" id="animalsTable">
+            <div class="animals-table-wrapper">
+                <table class="animals-table" id="animalsTable">
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -100,16 +105,21 @@
                     <tbody>
                         @forelse ($animals as $animal)
                             <tr class="animal-row">
-                                <td class="movie-title-cell animal-name-cell">{{ $animal['name'] }}</td>
+                                <td class="animal-name-cell">{{ $animal['name'] }}</td>
                                 <td>{{ $animal['species'] }}</td>
                                 <td>{{ $animal['age'] }} años</td>
                                 <td>
                                     <div class="actions">
-                                        <a href="{{ route('animals.edit', $animal['id']) }}" class="action-btn edit-btn">Editar</a>
+                                        <a href="{{ route('animals.edit', $animal['id']) }}" class="action-btn edit-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                <path d="m4 16-.8 4.8L8 20l11-11-4-4L4 16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                                <path d="m13.5 6.5 4 4" stroke="currentColor" stroke-width="2"/>
+                                            </svg>Editar</a>
                                         <form action="{{ route('animals.destroy', $animal['id']) }}" method="POST" onsubmit="return confirm('¿Eliminar este animal?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="action-btn delete-btn">Eliminar</button>
+                                            <button type="submit" class="action-btn delete-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                    <path d="M6 7h12M9 7V4h6v3M8 10v7M12 10v7M16 10v7M7 7l1 13h8l1-13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>Eliminar</button>
                                         </form>
                                     </div>
                                 </td>
@@ -117,7 +127,7 @@
                         @empty
                             <tr>
                                 <td colspan="4">
-                                    <div class="movies-empty">
+                                    <div class="animals-empty">
                                         <span class="empty-icon">🐾</span>
                                         <strong>No hay animales disponibles.</strong>
                                         <span>Agrega un animal para comenzar.</span>
@@ -158,7 +168,7 @@
             </div>
         </section>
 
-        <footer class="movies-footer">
+        <footer class="animals-footer">
             <div>
                 <strong>Administrador de Animales</strong>
                 <span>© {{ date('Y') }}</span>
@@ -168,96 +178,6 @@
     </div>
 </main>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const search = document.getElementById('animalSearch');
-    const sortAnimals = document.getElementById('sortAnimals');
-    const tableBody = document.querySelector('#animalsTable tbody');
-    const empty = document.getElementById('animalSearchEmpty');
-    const count = document.querySelector('.animals-page .results-count');
-    const pageButtons = document.getElementById('animalPageButtons');
-    const pageArrows = document.querySelectorAll('[data-animal-page-direction]');
-    const perPage = document.getElementById('animalPerPage');
-    let animalRows = Array.from(document.querySelectorAll('#animalsTable .animal-row'));
-    let sortAscending = false;
-    let currentPage = 1;
-
-    if (!search || !sortAnimals || !tableBody || !empty || !count || !pageButtons || !perPage) return;
-
-    function renderAnimals() {
-        const term = search.value.trim().toLowerCase();
-        const matchingRows = animalRows.filter(function (row) {
-            return row.textContent.toLowerCase().includes(term);
-        });
-        const pageSize = Number(perPage.value);
-        const totalPages = Math.max(1, Math.ceil(matchingRows.length / pageSize));
-        currentPage = Math.min(currentPage, totalPages);
-        const firstVisible = (currentPage - 1) * pageSize;
-        const lastVisible = firstVisible + pageSize;
-
-        animalRows.forEach(function (row) {
-            row.style.display = 'none';
-        });
-        matchingRows.slice(firstVisible, lastVisible).forEach(function (row) {
-            row.style.display = '';
-        });
-
-        empty.hidden = term === '' || matchingRows.length > 0;
-        count.textContent = matchingRows.length === 0
-            ? 'Mostrando 0 animales'
-            : 'Mostrando ' + (firstVisible + 1) + ' a ' + Math.min(lastVisible, matchingRows.length) + ' de ' + matchingRows.length + ' animales';
-
-        pageButtons.replaceChildren();
-        for (let page = 1; page <= totalPages; page++) {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'page-btn' + (page === currentPage ? ' active' : '');
-            button.textContent = page;
-            button.addEventListener('click', function () {
-                currentPage = page;
-                renderAnimals();
-            });
-            pageButtons.appendChild(button);
-        }
-
-        pageArrows.forEach(function (arrow) {
-            arrow.disabled = arrow.dataset.animalPageDirection === 'previous'
-                ? currentPage === 1
-                : currentPage === totalPages;
-        });
-    }
-
-    search.addEventListener('input', renderAnimals);
-    perPage.addEventListener('change', function () {
-        currentPage = 1;
-        renderAnimals();
-    });
-    sortAnimals.addEventListener('click', function () {
-        sortAscending = !sortAscending;
-        animalRows.sort(function (firstRow, secondRow) {
-            const firstName = firstRow.querySelector('.animal-name-cell').textContent.trim();
-            const secondName = secondRow.querySelector('.animal-name-cell').textContent.trim();
-            const comparison = firstName.localeCompare(secondName, undefined, { sensitivity: 'base' });
-
-            return sortAscending ? comparison : -comparison;
-        });
-
-        animalRows.forEach(function (row) {
-            tableBody.appendChild(row);
-        });
-        sortAnimals.setAttribute('aria-pressed', String(!sortAscending));
-        sortAnimals.querySelector('.sort-icon').textContent = sortAscending ? 'A-Z' : 'Z-A';
-        currentPage = 1;
-        renderAnimals();
-    });
-    pageArrows.forEach(function (arrow) {
-        arrow.addEventListener('click', function () {
-            currentPage += arrow.dataset.animalPageDirection === 'previous' ? -1 : 1;
-            renderAnimals();
-        });
-    });
-
-    renderAnimals();
-});
-</script>
+<!-- Enlace al archivo de JavaScript -->
+<script src="{{ asset('resources/js/animals.js') }}"></script>
 @endsection

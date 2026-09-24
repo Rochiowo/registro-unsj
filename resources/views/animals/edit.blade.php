@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="movies-page animals-page edit-page">
-    <div class="movies-shell">
-        <header class="movies-header">
+<main class="animals-page animals-page edit-page">
+    <div class="animals-shell">
+        <header class="animals-header">
             <div class="brand">
                 <div class="brand-icon" aria-hidden="true">
                     <svg class="animal-logo" viewBox="0 0 48 48" fill="none">
@@ -34,7 +34,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('animals.update', $animal['id']) }}" method="POST" class="movie-form animal-form">
+            <form action="{{ route('animals.update', $animal['id']) }}" method="POST" class="animal-form">
                 @csrf
                 @method('PUT')
 

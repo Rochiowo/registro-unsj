@@ -24,3 +24,4 @@ Route::post('/animals', [AnimalController::class, 'store'])->name('animals.store
 Route::get('/animals/{id}/edit', [AnimalController::class, 'edit'])->name('animals.edit');
 Route::put('/animals/{id}', [AnimalController::class, 'update'])->name('animals.update');
 Route::delete('/animals/{id}', [AnimalController::class, 'destroy'])->name('animals.destroy');
+Route::post('/animals/reset', [AnimalController::class, 'reset'])->name('animals.reset');

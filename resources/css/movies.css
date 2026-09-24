@@ -1,7 +1,5 @@
 /* =========================================================
-   MOVIES MANAGER
-   Diseño inspirado en la referencia proporcionada.
-    Archivo: resources/css/movies.css
+    MOVIES MANAGER
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -30,7 +28,7 @@
     min-height: 100vh;
     overflow-x: hidden;
     color: var(--text);
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .edit-page {
@@ -47,8 +45,6 @@
     border-radius: 14px;
     box-shadow: var(--shadow);
 }
-
-/* ---------- Header ---------- */
 
 .movies-header {
     padding: 27px 36px 20px;
@@ -96,8 +92,6 @@
     background: var(--border);
 }
 
-/* ---------- Section titles ---------- */
-
 .add-section,
 .list-section {
     padding: 0 36px;
@@ -116,21 +110,6 @@
     line-height: 1.2;
     font-weight: 700;
 }
-
-.section-icon {
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    color: var(--blue);
-}
-
-.section-icon svg {
-    width: 23px;
-    height: 23px;
-}
-
-/* ---------- Add form ---------- */
 
 .add-section {
     padding-top: 7px;
@@ -162,21 +141,6 @@
     font-weight: 600;
 }
 
-.field-icon {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    padding: 6px;
-    color: var(--blue);
-    background: #f0f6ff;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    object-fit: contain;
-    object-position: center;
-}
-
 .form-field input {
     width: 100%;
     height: 48px;
@@ -196,7 +160,7 @@
 }
 
 .form-field input:focus {
-    border-color: #6ea0ff;
+    border-color: var(--blue);
     box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
 }
 
@@ -236,15 +200,6 @@
     transform: translateY(-1px);
 }
 
-.btn-icon {
-    width: 22px;
-    height: 22px;
-    flex: 0 0 22px;
-    display: block;
-    object-fit: contain;
-    object-position: center;
-}
-
 .btn-secondary {
     color: #2c3e5e;
     background: #fff;
@@ -274,179 +229,6 @@
 .edit-page .movie-form {
     margin-top: 16px;
 }
-
-.animals-page .movies-header {
-    padding-bottom: 20px;
-}
-
-.animals-page .brand-icon {
-    color: #16805b;
-}
-
-.animals-page .animal-logo {
-    width: 100%;
-    height: 100%;
-}
-
-.animals-page .btn-primary {
-    color: #f0fdf4;
-    background: linear-gradient(135deg, #16805b, #166534);
-    border-color: #166534;
-    box-shadow: 0 5px 13px rgba(22, 101, 52, .22);
-}
-
-.animals-page .btn-primary:hover {
-    background: #14532d;
-}
-
-.animals-page .btn-secondary {
-    color: #166534;
-    border-color: #86b99b;
-}
-
-.animals-page .btn-secondary:hover {
-    background: #ecfdf5;
-}
-
-.animals-page .sort-btn:hover,
-.animals-page .sort-btn[aria-pressed="true"] {
-    background: #ecfdf5;
-    border-color: #86b99b;
-}
-
-.animals-page .sort-btn:focus-visible,
-.animals-page .search-box:focus-within {
-    border-color: #4f9f76;
-    box-shadow: 0 0 0 3px rgba(22, 101, 52, .12);
-}
-
-.animals-page .sort-icon {
-    color: #166534;
-}
-
-.animals-page .edit-btn {
-    color: #166534;
-    border-color: #86b99b;
-}
-
-.animals-page .edit-btn:hover {
-    background: #ecfdf5;
-}
-
-.animals-page .page-btn.active {
-    color: #f0fdf4;
-    background: #16805b;
-    border-color: #166534;
-    box-shadow: 0 4px 9px rgba(22, 101, 52, .18);
-}
-
-.animals-page .per-page:focus-within,
-.animals-page .per-page select:focus {
-    border-color: #4f9f76;
-    box-shadow: 0 0 0 3px rgba(22, 101, 52, .12);
-}
-
-.animals-list-section {
-    padding-top: 28px;
-    padding-bottom: 30px;
-}
-
-.animal-create-button {
-    min-width: 170px;
-    text-decoration: none;
-}
-
-.btn-icon-text {
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1;
-}
-
-.animal-status,
-.animal-errors {
-    margin-top: 14px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.animal-status {
-    color: #166534;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-}
-
-.animal-errors {
-    color: #991b1b;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-}
-
-.animal-errors p + p {
-    margin-top: 4px;
-}
-
-.animal-form-section {
-    padding-top: 14px;
-    padding-bottom: 34px;
-}
-
-.animal-form {
-    margin-top: 16px;
-}
-
-.animal-field-mark {
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    color: var(--blue);
-    background: #f0f6ff;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.animal-age-field {
-    grid-template-columns: 230px minmax(120px, 230px);
-}
-
-.animal-section-icon {
-    font-size: 22px;
-    line-height: 1;
-}
-
-.animals-table .actions {
-    gap: 12px;
-}
-
-@media (max-width: 900px) {
-    .animal-age-field {
-        grid-template-columns: 150px minmax(120px, 230px);
-    }
-}
-
-@media (max-width: 700px) {
-    .animals-list-section,
-    .animal-form-section {
-        padding-top: 20px;
-        padding-bottom: 24px;
-    }
-
-    .animal-create-button {
-        width: 100%;
-    }
-
-    .animal-age-field {
-        grid-template-columns: 1fr;
-    }
-
-    .animals-table {
-        min-width: 680px;
-    }
-}
-
-/* ---------- Movies list ---------- */
 
 .list-section {
     padding-top: 28px;
@@ -513,6 +295,11 @@
     background: #fff;
     border: 1px solid #d9e2ec;
     border-radius: 8px;
+}
+
+.search-box:focus-within {
+    border-color: #6ea0ff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
 }
 
 .search-box svg {
@@ -666,8 +453,6 @@
     display: none !important;
 }
 
-/* ---------- Table footer ---------- */
-
 .table-footer {
     min-height: 70px;
     display: grid;
@@ -787,20 +572,6 @@
     background: #fff;
 }
 
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* ---------- Footer ---------- */
-
 .movies-footer {
     min-height: 64px;
     display: flex;
@@ -824,13 +595,6 @@
 .movies-footer strong {
     color: #3e506e;
 }
-
-.footer-icon {
-    margin-right: 7px;
-    color: #60718d;
-}
-
-/* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
     .movies-page {
@@ -1017,29 +781,7 @@
         text-align: center;
     }
 
-    .pagination {
-        max-width: 100%;
-        overflow-x: auto;
-        padding-bottom: 2px;
-    }
-
-    .per-page {
-        justify-self: center;
-    }
-
-    .movies-footer {
-        margin-top: 20px;
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-}
-
-@media (max-width: 700px) {
-    .animals-page .list-tools {
-        flex-wrap: wrap;
-    }
-
-    .animals-page .animal-create-button {
-        flex: 1 0 100%;
+    .page-btn, .per-page {
+        min-width: 39px;
     }
 }

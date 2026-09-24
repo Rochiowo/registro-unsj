@@ -1,4 +1,5 @@
 @import './movies.css';
+@import './animals.css';
 
 @tailwind base;
 @tailwind components;

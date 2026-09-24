@@ -13,7 +13,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen font-sans text-gray-900 antialiased {{ $isAnimalsApp ? 'bg-emerald-50' : 'bg-gray-100' }}">
+    <body class="min-h-screen font-sans text-gray-900 antialiased {{ $isAnimalsApp ? '' : 'bg-gray-100' }}">
         <nav class="text-white shadow {{ $isAnimalsApp ? 'bg-emerald-800' : 'bg-gray-900' }}">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <a href="{{ $isAnimalsApp ? route('animals.index') : url('/') }}" class="text-2xl font-bold">{{ $applicationName }}</a>
