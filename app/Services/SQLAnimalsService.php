@@ -2,29 +2,31 @@
 
 namespace App\Services;
 
-use App\Exceptions\SpeciesNotFoundException;
+use App\Exceptions\AnimalsNotFoundException;
 use Illuminate\Support\Facades\DB;
 
-class SQLSpeciesService implements SpeciesServiceInterface
+class SQLAnimalsService implements AnimalServiceInterface
 {
-    //recupera todas las especies
+    //recupera todos los animales
     public function all(): array
     {
-        $rows = DB::select('SELECT id, name FROM species ORDER BY id ASC');
+        $rows = DB::select('SELECT id, name, species, age FROM animals ORDER BY id ASC');
 
         //convierte la respuesta de la base de datos en una lista limpia de PHP
-        return array_map(function ($row) {
+        $result = array_map(function ($row) {
             return (array) $row;
         }, $rows);
+
+        return $result;
     }
 
-    //busca una especie
+    //busca un animal
     public function find(string $id): array
     {
-        $row = DB::selectOne('SELECT id, name FROM species WHERE id = ?', [$id]);
+        $row = DB::selectOne('SELECT id, name, species, age FROM animals WHERE id = ?', [$id]);
 
         if (!$row) {
-            throw SpeciesNotFoundException::forId($id);
+            throw AnimalsNotFoundException::forId($id);
         }
 
         return (array) $row;
@@ -32,8 +34,10 @@ class SQLSpeciesService implements SpeciesServiceInterface
 
     public function create(array $data): array
     {
-        DB::insert('INSERT INTO species (name) VALUES (?)', [
-            $data['name']
+        DB::insert('INSERT INTO animals (name, species, age) VALUES (?, ?, ?)', [
+            $data['name'],
+            $data['species'],
+            $data['age']
         ]);
         //pregunta a SQLite: "¿Qué número de ID le acabas de asignar a lo que recién guardé?"
         $result = DB::selectOne('SELECT last_insert_rowid() AS id');
@@ -48,20 +52,22 @@ class SQLSpeciesService implements SpeciesServiceInterface
         //primero intenta buscarla: si no existe, salta la alarma y detiene el proceso aquí
         $this->find($id);
 
-        DB::update('UPDATE species SET name = ? WHERE id = ?', [
+        DB::update('UPDATE animals SET name = ?, species = ?, age = ? WHERE id = ?', [
             $data['name'],
+            $data['species'],
+            $data['age'],
             $id
         ]);
-        //devuelve la especie con su nombre ya modificado
+        //devuelve el animal con sus datos ya modificados
         return $this->find($id);
     }
 
     public function delete(string $id): bool
     {
-        //verifica que la especie exista antes de intentar borrarla
+        //verifica que el animal exista antes de intentar borrarlo
         $this->find($id);
 
-        $affected = DB::delete('DELETE FROM species WHERE id = ?', [$id]);
+        $affected = DB::delete('DELETE FROM animals WHERE id = ?', [$id]);
 
         //devuelve true si se borró correctamente
         return $affected > 0;
@@ -70,8 +76,8 @@ class SQLSpeciesService implements SpeciesServiceInterface
     //vacia la tabla
     public function reset(): void
     {
-        DB::statement('DELETE FROM species');
+        DB::statement('DELETE FROM animals');
         //reinicia el contador de IDs para que la próxima especie vuelva a empezar desde el número 1
-        DB::statement("DELETE FROM sqlite_sequence WHERE name = 'species'");
+        DB::statement("DELETE FROM sqlite_sequence WHERE name = 'animals'");
     }
 }
