@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AnimalController;
-use App\Http\Controllers\MovieController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\AnimalController;
+use App\Services\AnimalServiceInterface;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,9 +19,13 @@ Route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->name('movies.
 Route::put('/movies/{id}', [MovieController::class, 'update'])->name('movies.update');
 Route::delete('/movies/{id}', [MovieController::class, 'destroy'])->name('movies.destroy');
 
-Route::get('/animals', [AnimalController::class, 'index'])->name('animals.index');
-Route::get('/animals/create', [AnimalController::class, 'create'])->name('animals.create');
-Route::post('/animals', [AnimalController::class, 'store'])->name('animals.store');
-Route::get('/animals/{id}/edit', [AnimalController::class, 'edit'])->name('animals.edit');
-Route::put('/animals/{id}', [AnimalController::class, 'update'])->name('animals.update');
-Route::delete('/animals/{id}', [AnimalController::class, 'destroy'])->name('animals.destroy');
+
+
+Route::resource('animals', AnimalController::class);
+
+// Ruta auxiliar didáctica para reiniciar los datos de prueba en la sesión del mock
+Route::post('animals-reset', function (AnimalServiceInterface $service) {
+    $service->reset();
+    return redirect()->route('animals.index')->with('success', 'Datos de prueba reiniciados.');
+})->name('animals.reset');
+

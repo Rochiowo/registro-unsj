@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AnimalServiceInterface;
 use App\Http\Requests\StoreAnimalRequest;
 use App\Http\Requests\UpdateAnimalRequest;
 use Illuminate\Http\RedirectResponse;
@@ -9,80 +10,60 @@ use Illuminate\View\View;
 
 class AnimalController extends Controller
 {
+    public function __construct(
+        protected AnimalServiceInterface $animalService
+    ) {}
+
     public function index(): View
     {
-        $this->initializeAnimals();
+        // El controlador no sabe si los datos vienen de sesión o de una base de datos real
+        $animals = $this->animalService->all();
 
-        return view('animals.index', ['animals' => session('animals')]);
+        return view('animals.index', compact('animals'));
     }
 
-    public function create(): RedirectResponse
+    public function create(): View
     {
-        return redirect()->route('animals.index');
+        return view('animals.create');
     }
 
     public function store(StoreAnimalRequest $request): RedirectResponse
     {
-        $animals = $this->animals();
-        $animal = $request->validated();
-        $animal['id'] = (collect($animals)->max('id') ?? 0) + 1;
-
-        $animals[] = $animal;
-        session()->put('animals', $animals);
+        // Delegamos la creación al contrato/servicio
+        $this->animalService->create($request->validated());
 
         return redirect()->route('animals.index')->with('success', 'Animal creado correctamente.');
     }
 
-    public function edit(int $id): View
+    public function show(string $id): View
     {
-        $animal = collect($this->animals())->firstWhere('id', $id);
+        $animal = $this->animalService->find($id);
+        abort_if(!$animal, 404, 'Animal no encontrado.');
 
-        abort_unless($animal, 404);
-
-        return view('animals.edit', ['animal' => $animal]);
+        return view('animals.show', compact('animal'));
     }
 
-    public function update(UpdateAnimalRequest $request, int $id): RedirectResponse
+    public function edit(string $id): View
     {
-        $animals = $this->animals();
-        $animalIndex = collect($animals)->search(fn (array $animal): bool => $animal['id'] === $id);
+        $animal = $this->animalService->find($id);
+        abort_if(!$animal, 404, 'Animal no encontrado.');
 
-        abort_unless($animalIndex !== false, 404);
+        return view('animals.edit', compact('animal'));
+    }
 
-        $animals[$animalIndex] = array_merge($animals[$animalIndex], $request->validated());
-        session()->put('animals', $animals);
+    public function update(UpdateAnimalRequest $request, string $id): RedirectResponse
+    {
+        $updated = $this->animalService->update($id, $request->validated());
+        abort_if(!$updated, 404, 'Animal no encontrado.');
 
         return redirect()->route('animals.index')->with('success', 'Animal actualizado correctamente.');
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function destroy(string $id): RedirectResponse
     {
-        $animals = $this->animals();
-        $animalIndex = collect($animals)->search(fn (array $animal): bool => $animal['id'] === $id);
-
-        abort_unless($animalIndex !== false, 404);
-
-        unset($animals[$animalIndex]);
-        session()->put('animals', array_values($animals));
+        $deleted = $this->animalService->delete($id);
+        abort_if(!$deleted, 404, 'Animal no encontrado.');
 
         return redirect()->route('animals.index')->with('success', 'Animal eliminado correctamente.');
-    }
-
-    private function animals(): array
-    {
-        $this->initializeAnimals();
-
-        return session('animals', []);
-    }
-
-    private function initializeAnimals(): void
-    {
-        if (! session()->has('animals')) {
-            session()->put('animals', [
-                ['id' => 1, 'name' => 'Luna', 'species' => 'Perro', 'age' => 4],
-                ['id' => 2, 'name' => 'Milo', 'species' => 'Gato', 'age' => 2],
-                ['id' => 3, 'name' => 'Nube', 'species' => 'Conejo', 'age' => 1],
-            ]);
-        }
     }
 }
